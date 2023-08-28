@@ -1,0 +1,8 @@
+SN   NAME      SCORE  STATE    PLACE
+001: Tomide    57     Lagos    Sabo, Yabo
+002: Muiliyu   45     Abuja    Gwagwalada
+003: Mide      67     AkwaIbom Uyo
+004: Akin      23     Osun     Oshogbo
+005: Tommy     18     Imo      Owerri
+006: Tommie    45     Oyo      Ibadan
+007: Sodiq     23     Adamawa  Yola
