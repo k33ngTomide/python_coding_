@@ -1,18 +1,23 @@
-from Account import *
+import random
+
+from Bank_app.exceptions import *
+from account import Account
 
 
 class Bank:
     def __init__(self, bank_name):
         self.__bank_name = bank_name
-        self.account_list = []
+        self.__account_list = []
 
-    def register(self, first_name: str, last_name: str, pin: str) -> None:
+    def register(self, first_name: str, last_name: str, pin: str):
         full_name = f"{first_name} {last_name}"
         account = Account(self.__generate_account_number(), full_name, pin)
-        self.account_list.append(account)
+        self.__account_list.append(account)
+        return account.get_account()
 
     def __generate_account_number(self) -> str:
-        return f'{len(self.account_list) + 1}'
+        account_number = random.randint(1000000000, 9900000000)
+        return f'{account_number}'
 
     def deposit(self, amount, account_number):
         found_account = self.find_account(account_number)
@@ -34,8 +39,10 @@ class Bank:
         return found_account.check_balance(pin)
 
     def find_account(self, account_number) -> Account:
-        for account in self.account_list:
+        for account in self.__account_list:
             if account.account_number == account_number:
                 return account
+        raise AccountNotFoundException("Account Not Found")
 
-
+    def get_no_of_customers(self):
+        return len(self.__account_list)
