@@ -4,12 +4,12 @@ from bank import *
 
 def validate_name(name):
     if re.fullmatch("^[A-Z]+[a-z]*$", name): return
-    raise ValueError("Invalid name")
+    raise IncorrectNameException("Invalid name")
 
 
 def validate_pin(pin):
     if re.fullmatch("\\d{4}", pin): return
-    raise ValueError("Invalid Pin")
+    raise WrongPinException("Invalid Pin")
 
 
 class ATM:
@@ -51,7 +51,7 @@ class ATM:
             print("Account Registration Successful")
             self.welcome_menu()
 
-        except ValueError as VError:
+        except (ValueError, WrongPinException) as VError:
             print(VError)
             self.register_account()
 
@@ -97,7 +97,7 @@ class ATM:
             print("Transaction Successful...")
             self.__another_transaction()
 
-        except NegativeAmountException or AccountNotFoundException as all_error:
+        except (NegativeAmountException, AccountNotFoundException) as all_error:
             print(all_error)
             self.__another_transaction()
 
@@ -113,8 +113,8 @@ class ATM:
 
             self.__another_transaction()
 
-        except (NegativeAmountException or InsufficientFundException
-                or AccountNotFoundException) as all_error:
+        except (NegativeAmountException, InsufficientFundException,
+                AccountNotFoundException) as all_error:
             print(all_error)
             self.__another_transaction()
 
@@ -126,7 +126,7 @@ class ATM:
             print(self.bank.check_balance(account_number, pin))
             self.__another_transaction()
 
-        except WrongPinException or AccountNotFoundException or KeyboardInterrupt as all_error:
+        except (WrongPinException, AccountNotFoundException, KeyboardInterrupt) as all_error:
             print(all_error)
             self.__another_transaction()
 
@@ -139,7 +139,7 @@ class ATM:
             self.bank.transfer(amount, sender_account_number, receiver_account, pin)
             print(self.bank.check_balance(sender_account_number, pin))
             self.__another_transaction()
-        except ValueError or WrongPinException or NegativeAmountException as all_error:
+        except (ValueError, WrongPinException, NegativeAmountException) as all_error:
             print(all_error)
             self.__another_transaction()
 
@@ -154,7 +154,7 @@ class ATM:
             print("Pin Changed Successfully")
             self.__another_transaction()
 
-        except ValueError or WrongPinException as VError:
+        except (ValueError, WrongPinException) as VError:
             print(VError)
             self.__another_transaction()
 
