@@ -28,4 +28,10 @@ class Entry:
     def body(self, body):
         self.__body = body
 
+    def get_entry_details(self) -> str:
+        return (f"Entry id: {self.__id}"
+                f"\nTitle: {self.__title} "
+                f"\nContent: {self.__body}"
+                f"\nDate Created: {self.__date_created} ")
+
 

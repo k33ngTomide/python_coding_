@@ -30,10 +30,10 @@ class Diary:
         for entry in self.__list_of_entry:
             if entry.get_entry_id() == entry_id:
                 return entry
-        raise DiaryNotFoundException("Diary Not Found")
+        raise EntryNotFoundException("Entry Not Found")
 
-    def __generate_entry_id(self):
-        return len(self.__list_of_entry) + 1
+    def __generate_entry_id(self) -> str:
+        return str(len(self.__list_of_entry) + 1)
 
     def validate_diary_is_not_locked(self):
         if self.is_locked():
@@ -58,4 +58,10 @@ class Diary:
     def validate_password(self, password):
         if self.__password != password:
             raise IncorrectPasswordException("Incorrect Password")
+
+    def view_all_entries(self) -> str:
+        return "".join(
+            entry.get_entry_details() + "\n\n"
+            for entry in self.__list_of_entry
+        )
 
