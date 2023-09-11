@@ -64,7 +64,6 @@ def on_button_click():
     result_label.config(text=f"You entered:\n{text_content}")
 
 
-
 submit_button = tk.Button(window, text="Submit", command=on_button_click)
 submit_button.pack()
 

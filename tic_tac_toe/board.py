@@ -1,3 +1,6 @@
+import itertools
+import re
+
 from tic_tac_toe.all_exceptions import *
 
 
@@ -29,37 +32,14 @@ class Board:
         self.__winner = "None"
 
     def __make_move(self, spot: str, shape):
-        match spot:
 
-            case "1":
-                self.__validate_spot_is_not_played(self.__game_board[0][0])
-                self.__game_board[0][0] = shape
-            case "2":
-                self.__validate_spot_is_not_played(self.__game_board[0][1])
-                self.__game_board[0][1] = shape
-            case "3":
-                self.__validate_spot_is_not_played(self.__game_board[0][2])
-                self.__game_board[0][2] = shape
-            case "4":
-                self.__validate_spot_is_not_played(self.__game_board[1][0])
-                self.__game_board[1][0] = shape
-            case "5":
-                self.__validate_spot_is_not_played(self.__game_board[1][1])
-                self.__game_board[1][1] = shape
-            case "6":
-                self.__validate_spot_is_not_played(self.__game_board[1][2])
-                self.__game_board[1][2] = shape
-            case "7":
-                self.__validate_spot_is_not_played(self.__game_board[2][0])
-                self.__game_board[2][0] = shape
-            case "8":
-                self.__validate_spot_is_not_played(self.__game_board[2][1])
-                self.__game_board[2][1] = shape
-            case "9":
-                self.__validate_spot_is_not_played(self.__game_board[2][2])
-                self.__game_board[2][2] = shape
-            case _:
-                raise InvalidMoveException("Moves can only be between 1 to 9")
+        if re.fullmatch("[0-9]", spot) and 1 <= int(spot) <= 9:
+            for extra_counter, (counter, new_counter) in enumerate(itertools.product(range(3), range(3)), start=1):
+                if int(spot) == extra_counter:
+                    self.__validate_spot_is_not_played(self.__game_board[counter][new_counter])
+                    self.__game_board[counter][new_counter] = shape
+        else:
+            raise InvalidMoveException("Moves can only be between 1 to 9")
 
     @staticmethod
     def __validate_spot_is_not_played(space):
