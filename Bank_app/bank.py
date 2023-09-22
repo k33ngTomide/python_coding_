@@ -8,6 +8,7 @@ class Bank:
     def __init__(self, bank_name):
         self.__bank_name = bank_name
         self.__account_list = []
+        self.__list_of_account_number = []
 
     def register(self, first_name: str, last_name: str, pin: str):
         full_name = f"{first_name} {last_name}"
@@ -16,8 +17,15 @@ class Bank:
         return account.get_account()
 
     def __generate_account_number(self) -> str:
-        account_number = random.randint(1000000000, 9900000000)
-        return f'{account_number}'
+        account_number = f"71{random.randint(10000000, 99000000)}"
+        self.__validate_account_number(account_number)
+        return account_number
+
+    def __validate_account_number(self, account_number):
+        if account_number not in self.__list_of_account_number:
+            self.__list_of_account_number.append(account_number)
+        else:
+            self.__generate_account_number()
 
     def deposit(self, amount, account_number):
         found_account = self.find_account(account_number)
