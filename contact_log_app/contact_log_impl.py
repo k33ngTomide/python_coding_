@@ -10,12 +10,12 @@ class ContactLogImpl(ContactLog):
     def save(self, contact):
         contact_does_not_exist = contact.get_contact_id() == 0
         if contact_does_not_exist:
-            self.save_new(contact)
+            self.__save_new(contact)
         else:
             self.__update(contact)
         return contact
 
-    def save_new(self, contact):
+    def __save_new(self, contact):
         contact.set_contact_id(self.__generate_id())
         self.contacts.append(contact)
 
