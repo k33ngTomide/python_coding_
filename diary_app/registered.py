@@ -15,7 +15,8 @@ cursor.execute('''
     CREATE TABLE IF NOT EXISTS entries (
         id INTEGER PRIMARY KEY,
         user_id INTEGER,
-        content TEXT,
+        title TEXT,
+        body TEXT,
         FOREIGN KEY (user_id) REFERENCES users(id)
     )
 ''')
@@ -23,7 +24,6 @@ cursor.execute('''
 conn.commit()
 cursor.close()
 conn.close()
-
 
 def register_user(username, password):
     conn = sqlite3.connect('users_database.db')
@@ -44,10 +44,10 @@ def login_user(username, password):
     return user
 
 
-def save_entry(user_id, content):
+def save_entry(user_id, title, body):
     conn = sqlite3.connect('users_database.db')
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO entries (user_id, content) VALUES (?, ?)', (user_id, content))
+    cursor.execute('INSERT INTO entries (user_id, title, body) VALUES (?, ?, ?)', (user_id, title, body))
     conn.commit()
     cursor.close()
     conn.close()
@@ -63,25 +63,20 @@ def get_entries(user_id):
     return entries
 
 
-# Example usage:
 
-# Register a new user
 # register_user('john_doe', 'password123')
 
-# Log in the user
 # user = login_user('john_doe', 'password123')
 #
 # if user:
 #     user_id, username, _ = user
 #     print(f'Welcome, {username}!')
 #
-#     # Collect entries from the user
 #     num_entries = int(input("How many entries would you like to save? "))
 #     for _ in range(num_entries):
 #         entry_content = input("Enter your entry: ")
 #         save_entry(user_id, entry_content)
 #
-#     # Read user's entries
 #     entries = get_entries(user_id)
 #     print("\nYour Entries:")
 #     for entry in entries:
@@ -90,7 +85,8 @@ def get_entries(user_id):
 # else:
 #     print("Invalid login credentials.")
 
-# Get user registration details
+
+
 # username = input("Enter your username: ")
 # password = input("Enter your password: ")
 #
