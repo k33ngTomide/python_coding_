@@ -25,6 +25,7 @@ conn.commit()
 cursor.close()
 conn.close()
 
+
 def register_user(username, password):
     conn = sqlite3.connect('users_database.db')
     cursor = conn.cursor()
@@ -61,48 +62,3 @@ def get_entries(user_id):
     cursor.close()
     conn.close()
     return entries
-
-
-
-# register_user('john_doe', 'password123')
-
-# user = login_user('john_doe', 'password123')
-#
-# if user:
-#     user_id, username, _ = user
-#     print(f'Welcome, {username}!')
-#
-#     num_entries = int(input("How many entries would you like to save? "))
-#     for _ in range(num_entries):
-#         entry_content = input("Enter your entry: ")
-#         save_entry(user_id, entry_content)
-#
-#     entries = get_entries(user_id)
-#     print("\nYour Entries:")
-#     for entry in entries:
-#         entry_id, user_id, content = entry
-#         print(f"Entry ID: {entry_id}, Content: {content}")
-# else:
-#     print("Invalid login credentials.")
-
-
-
-# username = input("Enter your username: ")
-# password = input("Enter your password: ")
-#
-# register_user(username, password)
-#
-# conn.close()
-#
-# conn = sqlite3.connect('user_credentials.db')
-# cursor = conn.cursor()
-#
-# login_username = input("Enter your username for login: ")
-# login_password = input("Enter your password for login: ")
-#
-# if check_user(login_username, login_password):
-#     print("Login successful!")
-# else:
-#     print("Invalid login credentials.")
-#
-# conn.close()

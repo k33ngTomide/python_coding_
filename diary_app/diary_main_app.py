@@ -4,7 +4,6 @@ from tkinter import *
 from tkinter import messagebox
 import tkinter.simpledialog as simpledialog
 
-from diary_app import registered
 from diary_app.diaries import Diaries
 from diary_app.exceptions_list import *
 
@@ -54,7 +53,6 @@ def add_entry_extension():
     new_entry = Tk()
     new_entry.title("Add Entry")
 
-
     entry = Entry(new_entry, width=60)
     entry.pack()
 
@@ -65,8 +63,8 @@ def add_entry_extension():
         title = entry.get()
         body = new_widget.get("1.0", "end-1c")
 
-        # diaries.find_by_username(username).create_entry(title, body)
-        registered.save_entry(user_id, title, body)
+        diaries.find_by_username(username).create_entry(title, body)
+        # registered.save_entry(user_id, title, body)
         new_entry.destroy()
         messagebox.showinfo("Entry Id ", f"Your Entry Id is "
                                          f"{diaries.find_by_username(username).get_number_of_entries()}")
