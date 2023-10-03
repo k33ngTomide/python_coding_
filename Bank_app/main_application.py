@@ -2,16 +2,6 @@ import re
 from bank import *
 
 
-def validate_name(name):
-    if re.fullmatch("^[A-Z]+[a-z]*$", name): return
-    raise IncorrectNameException("Invalid name")
-
-
-def validate_pin(pin):
-    if re.fullmatch("\\d{4}", pin): return
-    raise WrongPinException("Invalid Pin")
-
-
 class ATM:
     def __init__(self):
         self.bank = Bank("Afunimawobe Bank")
@@ -39,19 +29,19 @@ class ATM:
     def register_account(self):
         try:
             user_first_name = input("Enter your first name: ")
-            validate_name(user_first_name)
+            self.validate_name(user_first_name)
 
             user_last_name = input("Enter your last name: ")
-            validate_name(user_last_name)
+            self.validate_name(user_last_name)
 
             user_pin = input("Enter your pin: ")
-            validate_pin(user_pin)
+            self.validate_pin(user_pin)
 
             print(self.bank.register(user_first_name, user_last_name, user_pin))
             print("Account Registration Successful")
             self.welcome_menu()
 
-        except (ValueError, WrongPinException) as VError:
+        except (ValueError, WrongPinException, IncorrectNameException) as VError:
             print(VError)
             self.register_account()
 
@@ -85,9 +75,21 @@ class ATM:
                 print("Invalid Input")
                 self.main_menu()
 
-    def __exit(self):
+    @staticmethod
+    def __exit():
         print("Thank you for Banking with The Afunimawobe Bank")
         exit(1)
+
+    @staticmethod
+    def validate_name(name):
+        if re.fullmatch("^[A-Z]+[a-z]*$", name): return
+        raise IncorrectNameException("Invalid name. Name must start with capital letter"
+                                     "\nName cannot contain special symbols or numbers. try again")
+
+    @staticmethod
+    def validate_pin(pin):
+        if re.fullmatch("\\d{4}", pin): return
+        raise WrongPinException("Invalid Pin, pin must be a four digit number")
 
     def __deposit(self):
         try:

@@ -33,8 +33,8 @@ class MenstrualApp:
         3. Get Fertility Period.
         4. Get Safe Period.
         5. Exit.
-
-            Enter Your Choice""")
+        
+        Enter Your Choice""")
         if user_input == "1":
             self.next_period()
         elif user_input == "2":
@@ -49,9 +49,7 @@ class MenstrualApp:
             self.invalid_input()
 
     def next_period(self):
-        date_of_last_period = self.input("""
-            Enter the date your last Period started (Format: yyyy-mm-dd)
-            """)
+        date_of_last_period = self.input("""Enter the date your last Period started (Format: yyyy-mm-dd)""")
         try:
             self.validate_date(date_of_last_period)
             cycle_length = int(self.input("Enter your cycle length "))
@@ -63,13 +61,12 @@ class MenstrualApp:
                 self.menstrual_calculator.get_start_date_of_next_period(
                     date_of_last_period, cycle_length, flow_days), flow_days)
             message = f"""
-                {design}
-                Next Period Start:  {period_start}
-                Next Period End:  {period_end}
-                {design}
-                
-                {self.print_calendar(period_start)}
-                """
+            {design}
+            Next Period Start:  {period_start}
+            Next Period End:  {period_end}
+            {design}
+            
+            {self.print_calendar(period_start)}"""
             self.display(message)
             self.start_input()
         except (ValueError, TypeError):
@@ -83,8 +80,8 @@ class MenstrualApp:
 
     def ovulation_period(self):
         date_of_last_period = self.input("""
-            Enter the date your last Period started (Format: yyyy-mm-dd)
-            """)
+            Enter the date your last Period started (Format: yyyy-mm-dd)""")
+
         try:
             self.validate_date(date_of_last_period)
             cycle_length = int(self.input("Enter your cycle length "))
@@ -119,8 +116,7 @@ class MenstrualApp:
             Fertility Period End:  {fertility_end}
             {design}
             
-            {self.print_calendar(fertility_start)}
-                """
+            {self.print_calendar(fertility_start)}"""
             self.display(message)
             self.start_input()
         except (ValueError, TypeError):
@@ -131,8 +127,7 @@ class MenstrualApp:
         date_of_last_period = self.input("""
             Remember: Abstinence is the the 100% way to be safe.
 
-            Enter the date your last Period started (Format: yyyy-mm-dd)
-            """)
+            Enter the date your last Period started (Format: yyyy-mm-dd)""")
         try:
             self.validate_date(date_of_last_period)
             cycle_length = int(self.input("Enter your cycle length "))
@@ -141,13 +136,13 @@ class MenstrualApp:
             safe_start = self.menstrual_calculator.get_start_of_safe_period(date_of_last_period, flow_days)
             safe_end = self.menstrual_calculator.get_end_of_safe_period(date_of_last_period, cycle_length, flow_days)
             message = f"""
-                {design}
-                Safe Period Start:  {safe_start}
-                Safe Period End:  {safe_end}
-                {design}
-                
-                {self.print_calendar(safe_start)}
-                """
+            {design}
+            Safe Period Start:  {safe_start}
+            Safe Period End:  {safe_end}
+            {design}
+            
+            {self.print_calendar(safe_start)}"""
+
             self.display(message)
             self.start_input()
         except (ValueError, TypeError):
@@ -172,24 +167,25 @@ class MenstrualApp:
 
     @staticmethod
     def display(message):
-        window = tk.Tk()
-        window.geometry("700x500")
-        window.title("Result")
+        print(message)
 
-        label = tk.Label(window, text=message, font=("Arial", 20))
-        label.grid(row=0, column=0)
+        # window = tk.Tk()
+        # window.geometry("700x500")
+        # window.title("Result")
+        #
+        # label = tk.Label(window, text=message, font=("Arial", 20))
+        # label.grid(row=0, column=0)
+        #
+        # button = tk.Button(window, text="OK", command=window.destroy)
+        # button.grid(row=1, column=1)
+        #
+        # window.mainloop()
 
-        button = tk.Button(window, text="OK", command=window.destroy)
-        button.grid(row=1, column=1)
-
-        window.mainloop()
-
-        # print(message)
 
     @staticmethod
     def input(prompt):
-        return tk.simpledialog.askstring("Input", prompt)
-        # return input(prompt)
+        # return tk.simpledialog.askstring("Input", prompt)
+        return input(f"{prompt}:  ")
 
 
 if __name__ == '__main__':

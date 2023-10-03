@@ -12,7 +12,8 @@ class Account:
     def validate_pin(self, pin: str):
         if self.__pin != pin: raise WrongPinException("Incorrect Pin")
 
-    def validate_amount(self, amount: float):
+    @staticmethod
+    def validate_amount(amount: float):
         if amount < 0: raise NegativeAmountException('Amount Cannot Be Negative')
 
     def deposit(self, amount: float) -> None:

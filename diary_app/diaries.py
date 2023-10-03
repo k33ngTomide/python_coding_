@@ -1,5 +1,6 @@
 from diary_app.diary import Diary
 from diary_app.exceptions_list import *
+from diary_app.registered import *
 
 
 class Diaries:
@@ -11,6 +12,7 @@ class Diaries:
         self.__validate_username(username)
         diary = Diary(username, password)
         self.__list_of_diaries.append(diary)
+        # register_user(username, password)
 
     def get_size(self):
         return len(self.__list_of_diaries)

@@ -23,27 +23,27 @@ class TestAccount(unittest.TestCase):
         self.account.withdraw(2_000, "1234")
         self.assertEqual(3_000, self.account.get_balance("1234"))
 
-    def testThatWithdrawalWithWrongPinRaisesExceptionAndBalanceIsUntouched(self):
+    def test_ThatWithdrawalWithWrongPinRaisesExceptionAndBalanceIsUntouched(self):
         self.account.deposit(10_000)
         self.assertRaises(WrongPinException, self.account.withdraw, 2000, "0121")
         self.assertEqual(10_000, self.account.get_balance("1234"))
 
-    def testThatWithdrawalWithWrongAmountRaisesException_AndBalanceIsUntouched(self):
+    def test_ThatWithdrawalWithWrongAmountRaisesException_AndBalanceIsUntouched(self):
         self.account.deposit(10_000)
         self.assertRaises(NegativeAmountException, self.account.withdraw, -2000, "1234")
         self.assertEqual(10_000, self.account.get_balance("1234"))
 
-    def testThatWithdrawalAmountMoreThanBalanceRaisesException_AndBalanceIsUntouched(self):
+    def test_ThatWithdrawalAmountMoreThanBalanceRaisesException_AndBalanceIsUntouched(self):
         self.account.deposit(5_000)
         self.assertRaises(InsufficientFundException, self.account.withdraw, 18000, "1234")
         self.assertEqual(5_000, self.account.get_balance("1234"))
 
-    def testThatPinCanBeChanged_ByTryingToWithdrawWithNewPin(self):
+    def test_ThatPinCanBeChanged_ByTryingToWithdrawWithNewPin(self):
         self.account.deposit(5_800)
         self.account.update_pin("1234", "1111")
         self.assertEqual(5_800, self.account.get_balance("1111"))
 
-    def testThatWithdrawalWithOldPinThrowsAnException(self):
+    def test_ThatWithdrawalWithOldPinThrowsAnException(self):
         self.account.deposit(1_300)
         self.account.update_pin("1234", "1111")
         self.assertRaises(WrongPinException, self.account.get_balance, "1234")

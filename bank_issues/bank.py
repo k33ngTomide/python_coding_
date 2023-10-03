@@ -1,7 +1,7 @@
 import random
 
+from Bank_app.account import Account
 from Bank_app.exceptions import *
-from account import Account
 
 
 class Bank:
