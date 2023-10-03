@@ -70,13 +70,20 @@ class MenstrualApp:
             self.display(message)
             self.start_input()
         except (ValueError, TypeError):
-            self.display("Invalid input or date format. Please try again.")
+            self.display()
             self.safe_period()
 
     @staticmethod
     def validate_date(date_of_last_period):
+        day = int(date_of_last_period[8:])
+        month = int(date_of_last_period[5:7])
+
         if not date_of_last_period.startswith("2023"):
             raise ValueError("Invalid date, Remember This is 2023")
+        if month > 12:
+            raise ValueError("Invalid Month, Month cannot be greater than 12")
+        if day > 31:
+            raise ValueError("Day is never greater than 31")
 
     def ovulation_period(self):
         date_of_last_period = self.input("""
@@ -99,7 +106,7 @@ class MenstrualApp:
             self.display(message)
             self.start_input()
         except (ValueError, TypeError):
-            self.display("Invalid input or date format. Please try again.")
+            self.display("Invalid input or Invalid date format. Please try again.")
             self.ovulation_period()
 
     def fertility_period(self):
@@ -120,7 +127,7 @@ class MenstrualApp:
             self.display(message)
             self.start_input()
         except (ValueError, TypeError):
-            self.display("Invalid input or date format. Please try again.")
+            self.display("Invalid input or invalid date format. Please try again.")
             self.fertility_period()
 
     def safe_period(self):
@@ -146,7 +153,7 @@ class MenstrualApp:
             self.display(message)
             self.start_input()
         except (ValueError, TypeError):
-            self.display("Invalid input or date format. Please try again.")
+            self.display("Invalid input or invalid date format. Please try again.")
             self.safe_period()
 
     def exit_application(self):
@@ -180,7 +187,6 @@ class MenstrualApp:
         # button.grid(row=1, column=1)
         #
         # window.mainloop()
-
 
     @staticmethod
     def input(prompt):
