@@ -101,7 +101,7 @@ class MenstrualApp:
             Ovulation date: {ovulation_date}
             {design}
             
-            {self.print_calendar(ovulation_date)}
+            {self.print_calendar(ovulation_date)}o
                 """
             self.display(message)
             self.start_input()
